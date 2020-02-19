@@ -1,2 +1,2 @@
-web:python main.py
+worker:python main.py
 ps:scale web=1
