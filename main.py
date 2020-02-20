@@ -22,7 +22,7 @@ def start_message(message):
 @bot.message_handler(content_types=['text'])
 def main(message):
     if (Bot.isChosenMaterial):
-        item = Main.GetItem(Main)
+        item = Main.GetItem(Main, message.text)
         bot.send_message(message.chat.id, f"{item.name}:\n{item.price}\n")
 
 
