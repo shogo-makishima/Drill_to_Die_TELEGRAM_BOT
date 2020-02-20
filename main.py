@@ -35,7 +35,7 @@ def main(message):
             photo = open(f'/app/Images/{item.name}.jpg', 'rb')
         except:
             photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(message.chat.id, photo)
+        bot.send_photo(message.chat.id, photo, caption=item.name)
 
         Bot.isChosenMaterial = False
 
