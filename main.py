@@ -16,7 +16,7 @@ def start(message):
 @bot.message_handler(commands=['materials'])
 def start_message(message):
     Bot.isChosenMaterial = True
-    bot.send_message(message.chat.id, f"Materials: \n{Main.GetItemsString(Main)}")
+    bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.")
 
 
 @bot.message_handler(content_types=['text'])
