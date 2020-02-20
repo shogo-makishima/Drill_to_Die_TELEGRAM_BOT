@@ -60,7 +60,7 @@ class Main:
             newlist.append(i)
 
         for i in newlist:
-            string += f"{i}\n" if (i != newlist[-1]) else f"{i}"
+            string += f"\t{i}\n" if (i != newlist[-1]) else f"{i}"
 
         return string
 
