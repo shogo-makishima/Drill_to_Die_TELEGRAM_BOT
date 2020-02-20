@@ -56,7 +56,8 @@ def main(message):
         except: pass
 
         try:
-            bot.send_photo(message.chat.id, photo=photo, caption=f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+            bot.send_photo(message.chat.id, photo=photo)
+            bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
         except:
             bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
 
