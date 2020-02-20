@@ -56,7 +56,7 @@ def main(message):
         except:
             photo = open(f'/app/Images/Unknown.png', 'rb')
 
-        bot.send_photo(message.chat.id, photo, caption=f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship.name)};\n")
+        bot.send_photo(message.chat.id, photo, caption=f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)};\n")
 
         Bot.isChosenMaterial = False
 
