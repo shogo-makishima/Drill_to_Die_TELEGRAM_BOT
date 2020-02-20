@@ -18,10 +18,12 @@ def start(message):
 @bot.message_handler(commands=['materials'])
 def start_message(message):
     Bot.isChosenMaterial = True
+    Bot.isChosenShip = False
     bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.")
 
 @bot.message_handler(commands=['ships'])
 def start_message(message):
+    Bot.isChosenMaterial = False
     Bot.isChosenShip = True
     bot.send_message(message.chat.id, f"Ships:\n{Main.GetShipsString(Main)}\n\nChoose the ship and write them name in message.")
 
