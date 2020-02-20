@@ -32,7 +32,7 @@ def main(message):
         bot.send_message(message.chat.id, f"{item.name}:\nPrice = {item.price};\n")
 
         try:
-            photo = open(f'/app/Images/{item["name"]}.jpg', 'rb')
+            photo = open(f'/app/Images/{item.name}.jpg', 'rb')
         except:
             photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(message.chat.id, photo)
