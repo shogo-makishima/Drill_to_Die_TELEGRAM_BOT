@@ -24,7 +24,11 @@ class Main:
         items = {}
 
         for item in self.data["items"]:
-            items[item["name"]] = Item(item["name"], item["price"])
+            try:
+                photo = open(f'/app/Images/{item["name"]}.jpg', 'rb')
+            except:
+                photo = open(f'/app/Images/Unknown.png', 'rb')
+            items[item["name"]] = Item(item["name"], item["price"], photo)
 
         return items
 
@@ -87,9 +91,10 @@ class Main:
 
 
 class Item:
-    def __init__(self, getName, getPrice):
+    def __init__(self, getName, getPrice, getPhoto):
         self.name = getName
         self.price = getPrice
+        self.photo = getPhoto
 
 
 
