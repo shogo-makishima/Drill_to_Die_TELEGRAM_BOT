@@ -29,13 +29,11 @@ def main(message):
             Bot.isChosenMaterial = False
             return
 
-        bot.send_message(message.chat.id, f"{item.name}:\nPrice = {item.price};\n")
-
         try:
             photo = open(f'/app/Images/{item.name}.jpg', 'rb')
         except:
             photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(message.chat.id, photo, caption=item.name)
+        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice = {item.price};\n")
 
         Bot.isChosenMaterial = False
 
