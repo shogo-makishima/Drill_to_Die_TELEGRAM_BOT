@@ -1,5 +1,7 @@
 import json, os
 
+class Bot:
+    isChosenMaterial = False
 
 class Main:
     data = {}
@@ -64,7 +66,10 @@ class Main:
 
 
     def GetItem(self, name):
-        return self.items[name]
+        item = None
+        if (self.items.get(name)):
+            item = self.items[name]
+        return item
 
     def GetShip(self, name):
         return self.ships[name]

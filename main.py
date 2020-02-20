@@ -1,6 +1,6 @@
 import os, telebot, logging
 from flask import Flask, request
-from Classes.Main import Main
+from Classes.Main import Main, Bot
 
 Main.Start(Main)
 
@@ -12,9 +12,18 @@ bot = telebot.TeleBot(TOKEN)
 def start(message):
     bot.reply_to(message, 'Hello, ' + message.from_user.first_name)
 
+
 @bot.message_handler(commands=['materials'])
 def start_message(message):
-    bot.send_message(message.chat.id, Main.GetItemsString(Main))
+    Bot.isChosenMaterial = True
+    bot.send_message(message.chat.id, f"Materials: \n{Main.GetItemsString(Main)}")
+
+
+@bot.message_handler(content_types=['text'])
+def main(message):
+    if (Bot.isChosenMaterial):
+        item = Main.GetItem(Main)
+        bot.send_message(message.chat.id, f"{item.name}:\n{item.price}\n")
 
 
 if ("HEROKU" in list(os.environ.keys())):
@@ -30,12 +39,6 @@ if ("HEROKU" in list(os.environ.keys())):
     def getMessage():
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
         return "!", 200
-
-    """"@server.route("/")
-    def webhook():
-        bot.remove_webhook()
-        bot.set_webhook(url="https://drill-to-die-bot.herokuapp.com/bot") # этот url нужно заменить на url вашего Хероку приложения
-        return "?", 200"""
 
     server.run(host="0.0.0.0", port=os.environ.get('PORT', 80))
 else:
