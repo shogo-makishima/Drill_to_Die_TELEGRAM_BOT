@@ -1,7 +1,8 @@
-import json, os
+import json, os, math
 
 class Bot:
     isChosenMaterial = False
+    isChosenShip = False
 
 class Main:
     data = {}
@@ -11,11 +12,9 @@ class Main:
     def Start(self):
         print(os.getcwd())
 
-        with open("/app/Files/data.json") as file:
-        # with open("Files/data.json") as file:
+        #with open("/app/Files/data.json") as file:
+        with open("Files\\data.json") as file:
             self.data = json.load(file)
-
-        print(self.data)
 
         self.items = self.__ParseItems(self)
         self.ships = self.__ParseShips(self)
@@ -64,6 +63,31 @@ class Main:
 
         return string
 
+    def GetShipsString(self):
+        string = ""
+
+        newlist = list()
+        for i in self.ships.keys():
+            newlist.append(i)
+
+        for i in newlist:
+            string += f"    {i};\n" if (i != newlist[-1]) else f"    {i};"
+
+        return string
+
+    def GetUpgradesString(self, ship):
+        string = ""
+
+        newlist = list()
+        for i in ship.upgrades:
+            newlist.append(i)
+
+        for i in newlist:
+            string += f"  {i.name}:\n"
+            for j in i.levelUpgrades:
+                string += f"    {j.level}:\n      Price = {j.price};\n      Variable = {round(j.variable, 1)};\n"
+
+        return string
 
     def GetItem(self, name):
         item = None
@@ -108,3 +132,8 @@ class LevelUpgrade:
         self.level = getLevel
         self.price = getPrice
         self.variable = getVariabel
+
+
+Main.Start(Main)
+
+

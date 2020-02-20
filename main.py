@@ -4,6 +4,8 @@ from Classes.Main import Main, Bot
 
 Main.Start(Main)
 
+# print(Main.GetUpgradesString(Main, "Betty"))
+
 TOKEN = '1006756726:AAEjnh_9yROdhIss825lDjrizRXC1B7th6I'
 bot = telebot.TeleBot(TOKEN)
 
@@ -17,6 +19,11 @@ def start(message):
 def start_message(message):
     Bot.isChosenMaterial = True
     bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.")
+
+@bot.message_handler(commands=['ships'])
+def start_message(message):
+    Bot.isChosenShip = True
+    bot.send_message(message.chat.id, f"Ships:\n{Main.GetShipsString(Main)}\n\nChoose the ship and write them name in message.")
 
 
 @bot.message_handler(content_types=['text'])
@@ -33,7 +40,23 @@ def main(message):
             photo = open(f'/app/Images/{item.name}.jpg', 'rb')
         except:
             photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice = {item.price};\n")
+        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice: {item.price};\n")
+
+        Bot.isChosenMaterial = False
+    elif (Bot.isChosenShip):
+        ship = Main.GetShip(Main, message.text)
+
+        if (ship is None):
+            bot.send_message(message.chat.id, "Not found!")
+            Bot.isChosenMaterial = False
+            return
+
+        try:
+            photo = open(f'/app/Images/{ship.name}.jpg', 'rb')
+        except:
+            photo = open(f'/app/Images/Unknown.png', 'rb')
+
+        bot.send_photo(message.chat.id, photo, caption=f"{ship.name}:\nPrice: {ship.price};\nUpgrades: \n{Main.GetUpgradesString(Main, ship.name)};\n")
 
         Bot.isChosenMaterial = False
 
