@@ -31,7 +31,6 @@ def main(message):
 
         bot.send_message(message.chat.id, f"{item.name}:\nPrice = {item.price};\n")
         bot.send_photo(message.chat.id, item.photo)
-        print(item.photo)
         Bot.isChosenMaterial = False
 
 

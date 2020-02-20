@@ -26,8 +26,10 @@ class Main:
         for item in self.data["items"]:
             try:
                 photo = open(f'/app/Images/{item["name"]}.jpg', 'rb')
+                photo.close()
             except:
                 photo = open(f'/app/Images/Unknown.png', 'rb')
+                photo.close()
             items[item["name"]] = Item(item["name"], item["price"], photo)
 
         return items
