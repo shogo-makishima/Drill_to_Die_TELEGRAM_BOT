@@ -23,6 +23,12 @@ def start_message(message):
 def main(message):
     if (Bot.isChosenMaterial):
         item = Main.GetItem(Main, message.text)
+
+        if (item is None):
+            bot.send_message(message.chat_id, "Not found!")
+            Bot.isChosenMaterial = False
+            return
+
         bot.send_message(message.chat.id, f"{item.name}:\n{item.price}\n")
         bot.send_photo(message.chat_id, item.photo)
         Bot.isChosenMaterial = False
