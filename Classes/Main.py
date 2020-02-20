@@ -1,4 +1,4 @@
-import json
+import json, os
 
 
 class Main:
@@ -7,6 +7,8 @@ class Main:
     ships = {}
 
     def Start(self):
+        print(os.getcwd())
+
         with open("Files\\data.json") as file:
             self.data = json.load(file)
 
