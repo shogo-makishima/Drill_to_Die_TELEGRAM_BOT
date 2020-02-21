@@ -42,14 +42,14 @@ def main(message):
 def callback_worker(call):
     data, prefix = call.data[2:], call.data[:1]
     print(f"Data = {data}; Prefix = {prefix};")
-    if (call.data in Main.items.keys() and prefix == "i"):
-        item = Main.GetItem(Main, call.data)
+    if (data in Main.items.keys() and prefix == "i"):
+        item = Main.GetItem(Main, data)
         try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
         Bot.isChosenMaterial = False
-    if (call.data in Main.ships.keys() and prefix == "s"):
-        ship = Main.GetShip(Main, call.data)
+    if (data in Main.ships.keys() and prefix == "s"):
+        ship = Main.GetShip(Main, data)
         photo = open(f'/app/Images/Unknown.png', 'rb')
         try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
         except: pass
