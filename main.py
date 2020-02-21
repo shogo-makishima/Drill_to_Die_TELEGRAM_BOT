@@ -39,7 +39,7 @@ def main(message):
             Bot.isChosenMaterial = False
             return
 
-        try: photo = open(f'/app/Images/{item.name}.jpg', 'rb')
+        try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice: {item.price};\n")
 
@@ -53,7 +53,7 @@ def main(message):
             return
 
         photo = open(f'/app/Images/Unknown.png', 'rb')
-        try: photo = open(f'/app/Images/{ship.name}.jpg', 'rb')
+        try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
         except: pass
 
         try:
