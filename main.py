@@ -13,7 +13,8 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['references'])
 def start(message):
-    bot.reply_to(message, "VK: https://vk.com/2point_games\nGameJolt: https://gamejolt.com/games/drilltodie/469250\n")
+    bot.reply_to(message, "VK: https://vk.com/2point_games\n")
+    bot.reply_to(message, "GameJolt: https://gamejolt.com/games/drilltodie/469250\n")
 
 
 @bot.message_handler(commands=['materials'])
