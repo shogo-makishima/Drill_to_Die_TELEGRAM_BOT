@@ -19,60 +19,50 @@ def start(message):
 
 @bot.message_handler(commands=['materials'])
 def start_message(message):
+    Bot.isChosenMaterial = True
+    Bot.isChosenShip = False
+
     keyboard = telebot.types.InlineKeyboardMarkup()
     for i in Main.items.keys():
         key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
         keyboard.add(key)
-    bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.", reply_markup=keyboard)
+    bot.send_message(message.chat.id, f"Choose the material:", reply_markup=keyboard)
 
 @bot.message_handler(commands=['ships'])
 def start_message(message):
     Bot.isChosenMaterial = False
     Bot.isChosenShip = True
-    bot.send_message(message.chat.id, f"Ships:\n{Main.GetShipsString(Main)}\n\nChoose the ship and write them name in message.")
+
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    for i in Main.ships.keys():
+        key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
+        keyboard.add(key)
+    bot.send_message(message.chat.id, f"Choose the ships:", reply_markup=keyboard)
 
 
 @bot.message_handler(content_types=['text'])
 def main(message):
-    if (Bot.isChosenMaterial):
-        item = Main.GetItem(Main, message.text)
-
-        if (item is None):
-            bot.send_message(message.chat.id, "Not found!")
-            Bot.isChosenMaterial = False
-            return
-
-        try: photo = open(f'/app/Images/{item.name}.png', 'rb')
-        except: photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
-
-        Bot.isChosenMaterial = False
-    elif (Bot.isChosenShip):
-        ship = Main.GetShip(Main, message.text)
-
-        if (ship is None):
-            bot.send_message(message.chat.id, "Not found!")
-            Bot.isChosenMaterial = False
-            return
-        
-        photo = open(f'/app/Images/Unknown.png', 'rb')
-        try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
-        except: pass
-
-        try:
-            bot.send_photo(message.chat.id, photo=photo)
-            bot.send_message(message.chat.id, f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
-        except: bot.send_message(message.chat.id, f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
-
-        Bot.isChosenMaterial = False
+    pass
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-    if (call.data in Main.items.keys()):
+    if (call.data in Main.items.keys() and Bot.isChosenMaterial):
         item = Main.GetItem(Main, call.data)
         try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
+        Bot.isChosenMaterial = False
+    if (call.data in Main.ships.keys() and Bot.isChosenShip):
+        ship = Main.GetShip(Main, call.message.text)
+        photo = open(f'/app/Images/Unknown.png', 'rb')
+        try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
+        except: pass
+        try:
+            bot.send_photo(call.message.chat.id, photo=photo)
+            bot.send_message(call.message.chat.id, f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+        except: bot.send_message(call.message.chat.id, f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+        Bot.isChosenShip = False
+
 
 if ("HEROKU" in list(os.environ.keys())):
     logger = telebot.logger
