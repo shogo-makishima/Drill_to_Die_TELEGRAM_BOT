@@ -40,7 +40,7 @@ def main(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-    data, prefix = call.data[2:], call.data[:2]
+    data, prefix = call.data[2:], call.data[:1]
     print(f"Data = {data}; Prefix = {prefix};")
     if (call.data in Main.items.keys() and prefix == "i"):
         item = Main.GetItem(Main, call.data)
