@@ -15,8 +15,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="16" column="83" selection-start-line="16" selection-start-column="83" selection-end-line="16" selection-end-column="83" />
+            <state relative-caret-position="275">
+              <caret line="25" column="158" selection-start-line="25" selection-start-column="158" selection-end-line="25" selection-end-column="158" />
+              <folding>
+                <element signature="e#1000#2309#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -258,8 +261,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="83" selection-start-line="16" selection-start-column="83" selection-end-line="16" selection-end-column="83" />
+        <state relative-caret-position="275">
+          <caret line="25" column="158" selection-start-line="25" selection-start-column="158" selection-end-line="25" selection-end-column="158" />
+          <folding>
+            <element signature="e#1000#2309#0" />
+          </folding>
         </state>
       </provider>
     </entry>

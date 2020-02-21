@@ -19,9 +19,11 @@ def start(message):
 
 @bot.message_handler(commands=['materials'])
 def start_message(message):
-    Bot.isChosenMaterial = True
-    Bot.isChosenShip = False
-    bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.")
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    for i in Main.GetItemsString(Main):
+        key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
+        keyboard.add(key)
+    bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.", reply_markup=keyboard)
 
 @bot.message_handler(commands=['ships'])
 def start_message(message):
