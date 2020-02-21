@@ -4,11 +4,6 @@ class Bot:
     isChosenMaterial = False
     isChosenShip = False
 
-    references = {
-        "VK": "ref VK",
-        "GameJolt": "ref GameJolt",
-    }
-
 
 class Main:
     data = {}
@@ -29,7 +24,7 @@ class Main:
         items = {}
 
         for item in self.data["items"]:
-            items[item["name"]] = Item(item["name"], item["price"])
+            items[item["name"]] = Item(item["name"], item["price"], item["destription"])
 
         return items
 
@@ -38,7 +33,7 @@ class Main:
 
         for ship in self.data["ships"]:
             upgrades = self.__ParseUpgrades(self, ship["upgrades"])
-            ships[ship["name"]] = Ship(ship["name"], upgrades)
+            ships[ship["name"]] = Ship(ship["name"], upgrades, ship["description"])
 
         return ships
 
@@ -117,16 +112,18 @@ class Main:
 
 
 class Item:
-    def __init__(self, getName, getPrice):
+    def __init__(self, getName, getPrice, getDescription):
         self.name = getName
         self.price = getPrice
+        self.description = getDescription
 
 
 
 class Ship:
-    def __init__(self, getName, getUpgardes):
+    def __init__(self, getName, getUpgardes, getDescription):
         self.name = getName
         self.upgrades = getUpgardes
+        self.description = getDescription
 
 class Upgrade:
     def __init__(self, getName, getLevelsUpgades):

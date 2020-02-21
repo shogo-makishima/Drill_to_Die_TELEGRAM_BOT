@@ -11,9 +11,9 @@ if (not TOKEN): sys.exit()
 bot = telebot.TeleBot(TOKEN)
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['references'])
 def start(message):
-    bot.reply_to(message, 'Hello, ' + message.from_user.first_name)
+    bot.reply_to(message, "VK: https://vk.com/2point_games\nGameJolt: https://gamejolt.com/games/drilltodie/469250\n")
 
 
 @bot.message_handler(commands=['materials'])
@@ -41,7 +41,7 @@ def main(message):
 
         try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice: {item.price};\n")
+        bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
 
         Bot.isChosenMaterial = False
     elif (Bot.isChosenShip):
@@ -51,15 +51,15 @@ def main(message):
             bot.send_message(message.chat.id, "Not found!")
             Bot.isChosenMaterial = False
             return
-
+        
         photo = open(f'/app/Images/Unknown.png', 'rb')
         try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
         except: pass
 
-        try:
+        try: bot.send_photo(message.chat.id, photo=photo, caption=f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+        except:
             bot.send_photo(message.chat.id, photo=photo)
-            bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
-        except: bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+            bot.send_message(message.chat.id, f"{ship.name}:\nDescription: {ship.description}\n\n\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
 
         Bot.isChosenMaterial = False
 
