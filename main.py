@@ -19,9 +19,6 @@ def start(message):
 
 @bot.message_handler(commands=['materials'])
 def start_message(message):
-    Bot.isChosenMaterial = True
-    Bot.isChosenShip = False
-
     keyboard = telebot.types.InlineKeyboardMarkup()
     for i in Main.items.keys():
         key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
@@ -30,9 +27,6 @@ def start_message(message):
 
 @bot.message_handler(commands=['ships'])
 def start_message(message):
-    Bot.isChosenMaterial = False
-    Bot.isChosenShip = True
-
     keyboard = telebot.types.InlineKeyboardMarkup()
     for i in Main.ships.keys():
         key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
@@ -46,14 +40,14 @@ def main(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
-    if (call.data in Main.items.keys() and Bot.isChosenMaterial):
+    if (call.data in Main.items.keys()):
         item = Main.GetItem(Main, call.data)
         try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
         Bot.isChosenMaterial = False
-    if (call.data in Main.ships.keys() and Bot.isChosenShip):
-        ship = Main.GetShip(Main, call.message.text)
+    if (call.data in Main.ships.keys()):
+        ship = Main.GetShip(Main, call.data)
         photo = open(f'/app/Images/Unknown.png', 'rb')
         try: photo = open(f'/app/Images/{ship.name}.png', 'rb')
         except: pass
