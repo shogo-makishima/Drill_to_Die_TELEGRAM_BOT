@@ -1,12 +1,13 @@
-import os, telebot, logging
+import os, telebot, logging, sys
 from flask import Flask, request
 from Classes.Main import Main, Bot
 
 Main.Start(Main)
 
-# print(Main.GetUpgradesString(Main, "Betty"))
+TOKEN = os.environ.get('TOKEN')
 
-TOKEN = '1006756726:AAEjnh_9yROdhIss825lDjrizRXC1B7th6I'
+if (not TOKEN): sys.exit()
+
 bot = telebot.TeleBot(TOKEN)
 
 
@@ -38,10 +39,8 @@ def main(message):
             Bot.isChosenMaterial = False
             return
 
-        try:
-            photo = open(f'/app/Images/{item.name}.jpg', 'rb')
-        except:
-            photo = open(f'/app/Images/Unknown.png', 'rb')
+        try: photo = open(f'/app/Images/{item.name}.jpg', 'rb')
+        except: photo = open(f'/app/Images/Unknown.png', 'rb')
         bot.send_photo(message.chat.id, photo, caption=f"{item.name}:\nPrice: {item.price};\n")
 
         Bot.isChosenMaterial = False
@@ -60,8 +59,7 @@ def main(message):
         try:
             bot.send_photo(message.chat.id, photo=photo)
             bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
-        except:
-            bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
+        except: bot.send_message(message.chat.id, f"{ship.name}:\nUpgrades: \n{Main.GetUpgradesString(Main, ship)}\n")
 
         Bot.isChosenMaterial = False
 

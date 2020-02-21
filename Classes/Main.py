@@ -4,6 +4,12 @@ class Bot:
     isChosenMaterial = False
     isChosenShip = False
 
+    references = {
+        "VK": "ref VK",
+        "GameJolt": "ref GameJolt",
+    }
+
+
 class Main:
     data = {}
     items = {}
