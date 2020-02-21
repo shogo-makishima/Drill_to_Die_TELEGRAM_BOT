@@ -66,6 +66,13 @@ def main(message):
 
         Bot.isChosenMaterial = False
 
+@bot.callback_query_handler(func=lambda call: True)
+def callback_worker(call):
+    if (call.data in Main.items.keys()):
+        item = Main.GetItem(Main, call.data)
+        try: photo = open(f'/app/Images/{item.name}.png', 'rb')
+        except: photo = open(f'/app/Images/Unknown.png', 'rb')
+        bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
 
 if ("HEROKU" in list(os.environ.keys())):
     logger = telebot.logger
