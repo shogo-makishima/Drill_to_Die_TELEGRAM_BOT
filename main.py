@@ -20,7 +20,7 @@ def start(message):
 @bot.message_handler(commands=['materials'])
 def start_message(message):
     keyboard = telebot.types.InlineKeyboardMarkup()
-    for i in Main.GetItemsString(Main):
+    for i in Main.items.keys():
         key = telebot.types.InlineKeyboardButton(text=i, callback_data=i)
         keyboard.add(key)
     bot.send_message(message.chat.id, f"Materials:\n{Main.GetItemsString(Main)}\n\nChoose the material and write them name in message.", reply_markup=keyboard)
