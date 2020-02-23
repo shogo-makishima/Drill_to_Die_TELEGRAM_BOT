@@ -14,7 +14,6 @@ class Main:
         print(os.getcwd())
 
         with open("/app/Files/data.json") as file:
-        # with open("Files\\data.json") as file:
             self.data = json.load(file)
 
         self.items = self.__ParseItems(self)

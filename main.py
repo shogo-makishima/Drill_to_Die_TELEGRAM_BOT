@@ -34,9 +34,10 @@ def start_message(message):
     bot.send_message(message.chat.id, f"Choose the ships:", reply_markup=keyboard)
 
 
-@bot.message_handler(content_types=['text'])
-def main(message):
-    pass
+@bot.message_handler(commands=['/game'])
+def start_game(message):
+    bot.send_game(message.chat.id, f"Drill to Die")
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
