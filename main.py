@@ -34,7 +34,7 @@ def start_message(message):
     bot.send_message(message.chat.id, f"Choose the ships:", reply_markup=keyboard)
 
 
-@bot.message_handler(commands=['/game'])
+@bot.message_handler(commands=['game'])
 def start_game(message):
     bot.send_game(message.chat.id, f"Drill to Die")
 
