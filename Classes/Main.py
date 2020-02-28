@@ -111,10 +111,12 @@ class Main:
 
 
 class Item:
-    def __init__(self, getName, getPrice, getDescription, minCount, maxCount):
+    def __init__(self, getName, getPrice, getDescription, getMinCount, getMaxCount):
         self.name = getName
         self.price = getPrice
         self.description = getDescription
+        self.minCount = getMinCount
+        self.maxCount = getMaxCount
 
 class Ship:
     def __init__(self, getName, getUpgardes, getDescription):
