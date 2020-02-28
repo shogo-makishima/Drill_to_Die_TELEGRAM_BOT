@@ -23,7 +23,7 @@ class Main:
         items = {}
 
         for item in self.data["items"]:
-            items[item["name"]] = Item(item["name"], item["price"], item["destription"])
+            items[item["name"]] = Item(item["name"], item["price"], item["destription"], item["minCount"], item["maxCount"])
 
         return items
 
@@ -111,12 +111,10 @@ class Main:
 
 
 class Item:
-    def __init__(self, getName, getPrice, getDescription):
+    def __init__(self, getName, getPrice, getDescription, minCount, maxCount):
         self.name = getName
         self.price = getPrice
         self.description = getDescription
-
-
 
 class Ship:
     def __init__(self, getName, getUpgardes, getDescription):

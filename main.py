@@ -47,7 +47,7 @@ def callback_worker(call):
         item = Main.GetItem(Main, data)
         try: photo = open(f'/app/Images/{item.name}.png', 'rb')
         except: photo = open(f'/app/Images/Unknown.png', 'rb')
-        bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\n")
+        bot.send_photo(call.message.chat.id, photo, caption=f"{item.name}:\nDescription: {item.description}\n\nPrice: {item.price};\nCount: [{item.minCount}, {item.maxCount});")
         Bot.isChosenMaterial = False
     if (data in Main.ships.keys() and prefix == "s"):
         ship = Main.GetShip(Main, data)
